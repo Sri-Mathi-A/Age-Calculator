@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+    stages {
+        stage('Compile Java') {
+            steps {
+                sh '''
+                    mkdir -p target/classes
+                    javac -d target/classes src/main/java/com/example/pakage/class.java
+                    
+                    mkdir -p target/classes/static
+                    cp src/main/resources/static/index.html target/classes/static/
+                    
+                    jar cvf target/my-app.jar -C target/classes .
+                '''
+            }
+        }
+    }
+}
